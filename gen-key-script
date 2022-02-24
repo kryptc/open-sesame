@@ -1,0 +1,10 @@
+Key-Type: 1
+Key-Length: 3072
+Subkey-Type: 1
+Subkey-Length: 3072
+Passphrase: abc123
+Name-Real: Kripa Anne
+Name-Email: kripa.tharakan@in.abb.com
+Expire-Date: 0
+%commit
+%echo Key created :D
