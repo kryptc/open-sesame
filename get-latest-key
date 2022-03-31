@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#function to get the key id of the gpg key most recently generated
+function get_latest_key
+{
+	#this command lists all keys, including subkeys, parses it and stores the output in temporary file keyfil
+	gpg2 --list-secret-keys --with-colons --fingerprint | sed -n 's/^fpr:::::::::\([[:alnum:]]\+\):/\1/p'>keyfil
+	keys=$( cat keyfil )
+	#sets delimiter as <space> and converts string to array
+	key_lis=$(echo $keys | tr " " "\n")
+	key_arr=()
+	for addr in $key_lis
+		do
+			key_arr+=($addr)
+		done
+	#GPGKEY is an env variable which will be used to store the latest gpg key. take key_arr[-2] is subkey was also created during key generation
+	export GPGKEY=${key_arr[-1]}
+	#removes temporary file created
+	rm keyfil
+}
